@@ -5,11 +5,11 @@
 N=${1:-4}
 
 
-# deleting containers [risky!]
+# deleting containers [risky to uncomment!]
 # sudo docker rm -f hadoop-master &> /dev/null
 
-# start hadoop master container
-echo "start hadoop-master container..."
+# Create hadoop master container
+echo "Creating hadoop-master container..."
 sudo docker run -itd \
                 --net=hadoop \
                 -p 50070:50070 \
@@ -19,13 +19,13 @@ sudo docker run -itd \
                 kiwenlau/hadoop:1.0 &> /dev/null
 
 
-# start hadoop slave container
+# Create hadoop slave containers
 i=1
 while [ $i -lt $N ]
 do
 	# deleting containers [risky to uncomment!]
 	# sudo docker rm -f hadoop-slave$i &> /dev/null
-	echo "start hadoop-slave$i container..."
+	echo "Creating hadoop-slave$i container..."
 	sudo docker run -itd \
 	                --net=hadoop \
 	                --name hadoop-slave$i \
