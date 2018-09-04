@@ -1,11 +1,14 @@
 #!/bin/bash
 
-# the default node number is 3
-N=${1:-3}
+# the default node number is 4
+# 3 slaves and 1 master node
+N=${1:-4}
 
+
+# deleting containers [risky!]
+# sudo docker rm -f hadoop-master &> /dev/null
 
 # start hadoop master container
-sudo docker rm -f hadoop-master &> /dev/null
 echo "start hadoop-master container..."
 sudo docker run -itd \
                 --net=hadoop \
@@ -20,7 +23,8 @@ sudo docker run -itd \
 i=1
 while [ $i -lt $N ]
 do
-	sudo docker rm -f hadoop-slave$i &> /dev/null
+	# deleting containers [risky to uncomment!]
+	# sudo docker rm -f hadoop-slave$i &> /dev/null
 	echo "start hadoop-slave$i container..."
 	sudo docker run -itd \
 	                --net=hadoop \
@@ -31,4 +35,4 @@ do
 done 
 
 # get into hadoop master container
-sudo docker exec -it hadoop-master bash
+# sudo docker exec -it hadoop-master bash
